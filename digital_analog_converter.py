@@ -1,18 +1,17 @@
-MAX_VOLTAGE = 5
-N_O_BITS = 10
-MAX_NUMBER = 2**N_O_BITS - 1
-
 class DAC:
-    def __init__(self, voltage):
+    def __init__(self, voltage, max_volt, bits):
         self.volt = voltage
+        self.max_volt = max_volt
+        self.bits = bits
+        self.max_number = 2**bits - 1
 
     def to_digital(self):
-        number = (MAX_NUMBER * self.volt) / MAX_VOLTAGE
-        digital_number = round(min(max(0, number), MAX_NUMBER))
+        number = (self.max_number * self.volt) / self.max_volt
+        digital_number = round(min(max(0, number), self.max_number))
         return bin(digital_number)
 
     def set_digital_value(self, value):
-        self.volt = (value * MAX_VOLTAGE) / MAX_NUMBER
+        self.volt = (value * self.max_volt) / self.max_number
 
     def get_voltage(self):
         return self.volt
